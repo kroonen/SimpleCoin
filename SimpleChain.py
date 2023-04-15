@@ -2,6 +2,7 @@ import hashlib
 import time
 import json
 import os
+import platform
 
 class Block:
     def __init__(self, index, previous_hash, timestamp, data, hash):
@@ -44,7 +45,11 @@ def start_blockchain_loop(blockchain, block_creation_interval):
 blockchain = [create_genesis_block()]
 
 print("Press any key to start the node...")
-os.system('pause >nul')
+
+if platform.system() == "Windows":
+    os.system('pause >nul')
+else:
+    os.system('read -n 1 -s -r -p "Press any key to continue..."')
 
 print("Node started. Creating blocks every 10 seconds...\n")
 start_blockchain_loop(blockchain, 10)
