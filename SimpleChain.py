@@ -3,6 +3,7 @@ import time
 import json
 import os
 import platform
+import select
 
 class Block:
     def __init__(self, index, previous_hash, timestamp, data, hash):
@@ -49,7 +50,8 @@ print("Press any key to start the node...")
 if platform.system() == "Windows":
     os.system('pause >nul')
 else:
-    os.system('read -n 1 -s -r -p "Press any key to continue..."')
-
+    # Wait for a single character of input from the user
+    select.select([os.stdin], [], [], 1)
+    
 print("Node started. Creating blocks every 10 seconds...\n")
 start_blockchain_loop(blockchain, 10)
